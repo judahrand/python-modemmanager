@@ -5,7 +5,7 @@
 # License: MIT
 
 
-from ModemManager.ModemManager import ModemManagerHelper, ModemManagerError
+from ModemManager.ModemManager import ModemManagerHelper
 
 
 class Bearer(ModemManagerHelper):
@@ -16,7 +16,7 @@ class Bearer(ModemManagerHelper):
         try:
             return self._bearer[key]
         except KeyError:
-            raise ModemManagerError('bearer does not have property named {}'.format(key))
+            raise KeyError('bearer does not have property named {}'.format(key))
 
     def Connect(self):
         try:

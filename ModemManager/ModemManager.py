@@ -6,7 +6,6 @@
 
 
 from ModemManager.ModemManagerHelper import ModemManagerHelper
-from ModemManager.ModemManagerError import ModemManagerError
 from ModemManager.Modem.Modem import Modem
 
 
@@ -19,7 +18,7 @@ class ModemManager(ModemManagerHelper):
         try:
             return Modem(path)
         except KeyError:
-            raise ModemManagerError('modem {} does not exist'.format(path))
+            raise KeyError('modem {} does not exist'.format(path))
 
     def __iter__(self):
             for key in self.ListModems():
@@ -29,23 +28,23 @@ class ModemManager(ModemManagerHelper):
     def ScanDevices(self):
         try:
             self._dbus.ScanDevices()
-        except Exception:
-            raise ModemManagerError('failed to scan devices')
+        except Exception as e:
+            raise e
 
     def SetLogging(self, level):
         if level in ('ERR', 'WARN', 'INFO', 'DEBUG'):
             try:
                 self._dbus.SetLogging(level)
-            except Exception:
-                ModemManagerError('failed to set logging')
+            except Exception as e:
+                raise e
         else:
-            raise ModemManagerError('invalid logging level')
+            raise ValueError('invalid logging level')
 
     def GetManagedObjects(self):
         try:
             return self._dbus.GetManagedObjects()
-        except Exception:
-            raise ModemManagerError('failed to get managed objects')
+        except Exception as e:
+            raise e
 
     def ListModems(self):
         return self.GetManagedObjects().keys()

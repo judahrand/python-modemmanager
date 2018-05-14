@@ -16,7 +16,7 @@ class Call(ModemManagerHelper):
         try:
             return self.Get(key)
         except KeyError:
-            raise ModemManagerError('{} does not have property named {}'.format(self._interface, key))
+            raise KeyError('{} does not have property named {}'.format(self._interface, key))
 
     def Start(self):
         self._dbus.Start()
