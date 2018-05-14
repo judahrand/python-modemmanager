@@ -25,12 +25,26 @@ class ModemManagerHelper(object):
     def Get(self, property_name, interface_name=None):
         if interface_name is None:
             interface_name = self._interface
-        return self._dbus.Get(interface_name, property_name)
+
+        value = self._dbus.Get(interface_name, property_name)
+        try:
+            value = int(value)
+        except (TypeError, ValueError):
+            pass
+        return value
 
     def GetAll(self, interface_name=None):
         if interface_name is None:
             interface_name = self._interface
-        return self._dbus.GetAll(interface_name)
+
+        values = self._dbus.GetAll(interface_name)
+        for key in values:
+            try:
+                values[key] = int(values[key])
+            except (TypeError, ValueError):
+                pass
+
+        return values
 
     def Set(self, value, property_name, interface_name=None):
         if interface_name is None:
