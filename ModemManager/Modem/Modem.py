@@ -6,6 +6,7 @@
 
 
 import logging
+import types
 
 from ModemManager.ModemManager import ModemManagerHelper
 from ModemManager.Modem.Simple import Simple
@@ -20,6 +21,7 @@ from ModemManager.Modem.Signal import Signal
 from ModemManager.Modem.Oma import Oma
 from ModemManager.SIM import SIM
 from ModemManager.Bearer import Bearer
+from ModemManager._enum import MMModemState, MMModemStateChangeReason
 
 
 class Modem(ModemManagerHelper):
@@ -36,6 +38,38 @@ class Modem(ModemManagerHelper):
         self.Firmware = Firmware(self._path)
         self.Signal = Signal(self._path)
         self.Oma = Oma(self._path)
+
+        self._state_changed = None
+
+    @property
+    def onStateChanged(self):
+        return self._state_changed
+
+    @onStateChanged.setter
+    def onStateChanged(self, callback):
+        if self._state_changed is not None:
+            self._state_changed.disconnect()
+            del(self._state_changed)
+
+        callback = types.MethodType(callback, self)
+        self._state_changed = self._dbus.StateChanged.connect(callback)
+
+    @onStateChanged.deleter
+    def onStateChanged(self):
+        if self._state_changed is not None:
+            self._state_changed.disconnect()
+
+        self._state_changed = None
+
+    def connectStateChanged(self, callback=None):
+        if callback is not None:
+            self.onStateChanged = callback
+            return self.onStateChanged
+        else:
+            return self._dbus.StateChanged.connect(self._on_state_changed_cb)
+
+    def _on_state_changed_cb(self, old, new, reason):
+        logging.info('{}: {} to {} because {}'.format(self._path, MMModemState(old).name, MMModemState(new).name, MMModemStateChangeReason(reason).name))
 
     def __getitem__(self, key):
         return self.Get(key)
