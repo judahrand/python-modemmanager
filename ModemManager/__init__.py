@@ -14,3 +14,6 @@ from ModemManager.SMS import SMS
 
 from ModemManager._enum import *
 from ModemManager._error import *
+
+import logging
+logging.getLogger('ModemManager').addHandler(logging.NullHandler())
