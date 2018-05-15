@@ -13,7 +13,7 @@ from ModemManager.SIM import SIM
 from ModemManager.SMS import SMS
 
 from ModemManager._enum import *
-from ModemManager._error import *
+from ModemManager._errors import *
 
 import logging
 logging.getLogger('ModemManager').addHandler(logging.NullHandler())
