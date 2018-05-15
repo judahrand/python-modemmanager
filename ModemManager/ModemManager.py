@@ -5,6 +5,8 @@
 # License: MIT
 
 
+import logging
+
 from ModemManager.ModemManagerHelper import ModemManagerHelper
 from ModemManager.Modem.Modem import Modem
 
