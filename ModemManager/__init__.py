@@ -12,7 +12,7 @@ from ModemManager.Call import Call
 from ModemManager.SIM import SIM
 from ModemManager.SMS import SMS
 
-from ModemManager._enum import *
+from ModemManager._enums import *
 from ModemManager._errors import *
 
 import logging
