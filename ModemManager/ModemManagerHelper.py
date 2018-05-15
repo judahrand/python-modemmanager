@@ -22,6 +22,30 @@ class ModemManagerHelper(object):
     def __str__(self):
         return str(self._path)
 
+    @property
+    def path(self):
+        return self._path
+
+    @path.setter
+    def path(self, value):
+        return
+
+    @path.deleter
+    def path(self):
+        return
+
+    @property
+    def interface(self):
+        return self._interface
+
+    @interface.setter
+    def interface(self, value):
+        return
+
+    @interface.deleter
+    def interface(self):
+        return
+
     def Get(self, property_name, interface_name=None):
         if interface_name is None:
             interface_name = self._interface
