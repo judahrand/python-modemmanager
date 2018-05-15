@@ -42,6 +42,12 @@ class ModemManager(ModemManagerHelper):
         else:
             raise ValueError('invalid logging level')
 
+    def ReportKernelEvent(self, properties):
+        try:
+            self._dbus.ReportKernelEvent(properties)
+        except Exception as e:
+            raise e
+
     def GetManagedObjects(self):
         try:
             return self._dbus.GetManagedObjects()
