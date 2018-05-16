@@ -24,7 +24,7 @@ class Oma(ModemManagerHelper):
     @onSessionStateChanged.setter
     def onSessionStateChanged(self, callback):
         callback = types.MethodType(callback, self)
-        self._session_state_changed = self._dbus.SessionStateChanged.connect(callback)
+        self._session_state_changed = self._dbus[self._interface].SessionStateChanged.connect(callback)
 
     @onSessionStateChanged.deleter
     def onSessionStateChanged(self):
@@ -38,7 +38,7 @@ class Oma(ModemManagerHelper):
             self.onSessionStateChanged = callback
             return self.onSessionStateChanged
         else:
-            return self._dbus.SessionStateChanged.connect(self._on_session_state_changed_cb)
+            return self._dbus[self._interface].SessionStateChanged.connect(self._on_session_state_changed_cb)
 
     def _on_session_state_changed_cb(self, old_session_state, new_session_state, session_state_failed_reason):
         if session_state_failed_reason:
@@ -50,13 +50,13 @@ class Oma(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Oma ###
     def Setup(self, features):
-        self._dbus.Setup(features)
+        self._dbus[self._interface].Setup(features)
 
     def StartClientInitiatedSession(self, session_type):
-        self._dbus.StartClientInitiatedSession(session_type)
+        self._dbus[self._interface].StartClientInitiatedSession(session_type)
 
     def AcceptNetworkInitiatedSession(self, session_id, accept):
-        self._dbus.AcceptNetworkInitiatedSession(session_id, accept)
+        self._dbus[self._interface].AcceptNetworkInitiatedSession(session_id, accept)
 
     def CancelSession(self):
-        self._dbus.CancelSession()
+        self._dbus[self._interface].CancelSession()

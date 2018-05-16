@@ -21,7 +21,7 @@ class SMS(ModemManagerHelper):
             raise KeyError('{} does not have property named {}'.format(self._interface, key))
 
     def Send(self):
-        self._dbus.Send()
+        self._dbus[self._interface].Send()
 
     def Store(self, storage):
-        self._dbus.Store(storage)
+        self._dbus[self._interface].Store(storage)

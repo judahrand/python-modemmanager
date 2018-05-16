@@ -22,12 +22,12 @@ class Bearer(ModemManagerHelper):
 
     def Connect(self):
         try:
-            self._dbus.Connect()
+            self._dbus[self._interface].Connect()
         except Exception as e:
             raise e
 
     def Disconnect(self):
         try:
-            self._dbus.Disconnect()
+            self._dbus[self._interface].Disconnect()
         except Exception as e:
             raise e

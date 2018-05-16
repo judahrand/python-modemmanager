@@ -16,4 +16,4 @@ class Signal(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Signal ###
     def Setup(self, rate):
-        self._dbus.Setup(rate)
+        self._dbus[self._interface].Setup(rate)

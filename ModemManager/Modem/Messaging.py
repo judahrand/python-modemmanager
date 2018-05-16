@@ -25,7 +25,7 @@ class Messaging(ModemManagerHelper):
     @onAdded.setter
     def onAdded(self, callback):
         callback = types.MethodType(callback, self)
-        self._state_changed = self._dbus.Added.connect(callback)
+        self._state_changed = self._dbus[self._interface].Added.connect(callback)
 
     @onAdded.deleter
     def onAdded(self):
@@ -39,7 +39,7 @@ class Messaging(ModemManagerHelper):
             self.onAdded = callback
             return self.onAdded
         else:
-            return self._dbus.Added.connect(self._on_added_cb)
+            return self._dbus[self._interface].Added.connect(self._on_added_cb)
 
     def _on_added_cb(self, path, received):
         if received:
@@ -54,7 +54,7 @@ class Messaging(ModemManagerHelper):
     @onDeleted.setter
     def onDeleted(self, callback):
         callback = types.MethodType(callback, self)
-        self._deleted = self._dbus.Deleted.connect(callback)
+        self._deleted = self._dbus[self._interface].Deleted.connect(callback)
 
     @onDeleted.deleter
     def onDeleted(self):
@@ -68,20 +68,20 @@ class Messaging(ModemManagerHelper):
             self.onDeleted = callback
             return self.onDeleted
         else:
-            return self._dbus.Deleted.connect(self._on_deleted_cb)
+            return self._dbus[self._interface].Deleted.connect(self._on_deleted_cb)
 
     def _on_deleted_cb(self, path):
         logging.info('{}: {} deleted'.format(self._path, path))
 
     ### org.freedesktop.ModemManager1.Modem.Messaging ###
     def List(self):
-        return self._dbus.List()
+        return self._dbus[self._interface].List()
 
     def Delete(self, path):
-        self._dbus.Delete(path)
+        self._dbus[self._interface].Delete(path)
 
     def Create(self, properties):
-        return self._dbus.Create(properties)
+        return self._dbus[self._interface].Create(properties)
 
     ### get interface to Sms ###
     def GetSMS(self, path):

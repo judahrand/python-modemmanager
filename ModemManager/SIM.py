@@ -20,13 +20,13 @@ class SIM(ModemManagerHelper):
             raise KeyError('{} does not have property named {}'.format(self._interface, key))
 
     def SendPin(self, pin):
-        self._dbus.SendPin(pin)
+        self._dbus[self._interface].SendPin(pin)
 
     def SendPuk(self, puk, pin):
-        self._dbus.SendPuk(puk, pin)
+        self._dbus[self._interface].SendPuk(puk, pin)
 
     def EnablePin(self, pin, enabled):
-        self._dbus.EnablePin(pin, enabled)
+        self._dbus[self._interface].EnablePin(pin, enabled)
 
     def ChangePin(self, old_pin, new_pin):
-        self._dbus.ChangePin(old_pin, new_pin)
+        self._dbus[self._interface].ChangePin(old_pin, new_pin)

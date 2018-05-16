@@ -29,14 +29,14 @@ class ModemManager(ModemManagerHelper):
     ### org.freedesktop.ModemManager1 ###
     def ScanDevices(self):
         try:
-            self._dbus.ScanDevices()
+            self._dbus[self._interface].ScanDevices()
         except Exception as e:
             raise e
 
     def SetLogging(self, level):
         if level in ('ERR', 'WARN', 'INFO', 'DEBUG'):
             try:
-                self._dbus.SetLogging(level)
+                self._dbus[self._interface].SetLogging(level)
             except Exception as e:
                 raise e
         else:
@@ -44,7 +44,7 @@ class ModemManager(ModemManagerHelper):
 
     def ReportKernelEvent(self, properties):
         try:
-            self._dbus.ReportKernelEvent(properties)
+            self._dbus[self._interface].ReportKernelEvent(properties)
         except Exception as e:
             raise e
 

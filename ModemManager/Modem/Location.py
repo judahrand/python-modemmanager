@@ -16,13 +16,13 @@ class Location(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Location ###
     def SetupLocation(self, sources, signal_location):
-        self._dbus.Setup(sources, signal_location)
+        self._dbus[self._interface].Setup(sources, signal_location)
 
     def GetLocation(self):
-        return self._dbus.GetLocation()
+        return self._dbus[self._interface].GetLocation()
 
     def SetSuplServer(self, supl):
-        self._dbus.SetSuplServer(supl)
+        self._dbus[self._interface].SetSuplServer(supl)
 
     def SetGpsRefreshRate(self, rate):
-        self._dbus.SetGpsRefreshRate(rate)
+        self._dbus[self._interface].SetGpsRefreshRate(rate)

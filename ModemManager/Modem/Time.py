@@ -24,7 +24,7 @@ class Time(ModemManagerHelper):
     @onNetworkTimeChanged.setter
     def onNetworkTimeChanged(self, callback):
         callback = types.MethodType(callback, self)
-        self._network_time_changed = self._dbus.NetworkTimeChanged.connect(self._on_network_time_changed_cb)
+        self._network_time_changed = self._dbus[self._interface].NetworkTimeChanged.connect(self._on_network_time_changed_cb)
 
     @onNetworkTimeChanged.deleter
     def onNetworkTimeChanged(self):
@@ -38,11 +38,11 @@ class Time(ModemManagerHelper):
             self.onNetworkTimeChanged = callback
             return self.onNetworkTimeChanged
         else:
-            return self._dbus.NetworkTimeChanged.connect(callback)
+            return self._dbus[self._interface].NetworkTimeChanged.connect(callback)
 
     def _on_network_time_changed_cb(self, time):
         logging.info('{}: network time changed to {}'.format(self._path, time))
 
     ### org.freedesktop.ModemManager1.Modem.Time ###
     def GetNetworkTime(self):
-        return time(self._dbus.GetNetworkTime())
+        return time(self._dbus[self._interface].GetNetworkTime())

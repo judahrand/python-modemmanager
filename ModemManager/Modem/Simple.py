@@ -16,10 +16,10 @@ class Simple(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Simple ###
     def Connect(self, properties):
-        return self._dbus.Connect(properties)
+        return self._dbus[self._interface].Connect(properties)
 
     def Disconnect(self, bearer):
-        self._dbus.Disconnect(bearer)
+        self._dbus[self._interface].Disconnect(bearer)
 
     def GetStatus(self):
-        return self._dbus.GetStatus()
+        return self._dbus[self._interface].GetStatus()

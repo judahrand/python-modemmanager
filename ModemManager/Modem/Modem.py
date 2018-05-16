@@ -52,7 +52,7 @@ class Modem(ModemManagerHelper):
             del(self._state_changed)
 
         callback = types.MethodType(callback, self)
-        self._state_changed = self._dbus.StateChanged.connect(callback)
+        self._state_changed = self._dbus[self._interface].StateChanged.connect(callback)
 
     @onStateChanged.deleter
     def onStateChanged(self):
@@ -66,7 +66,7 @@ class Modem(ModemManagerHelper):
             self.onStateChanged = callback
             return self.onStateChanged
         else:
-            return self._dbus.StateChanged.connect(self._on_state_changed_cb)
+            return self._dbus[self._interface].StateChanged.connect(self._on_state_changed_cb)
 
     def _on_state_changed_cb(self, old, new, reason):
         logging.info('{}: {} to {} because {}'.format(self._path, MMModemState(old).name, MMModemState(new).name, MMModemStateChangeReason(reason).name))
@@ -96,34 +96,34 @@ class Modem(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem ###
     def Enable(self, enabled):
-        self._dbus.Enable(enabled)
+        self._dbus[self._interface].Enable(enabled)
 
     def ListBearers(self):
-        return self._dbus.ListBearers()
+        return self._dbus[self._interface].ListBearers()
 
     def CreateBearer(self, properties):
-        return self._dbus.CreateBearer(properties)
+        return self._dbus[self._interface].CreateBearer(properties)
 
     def DeleteBearer(self, bearer):
-        self._dbus.DeleteBearer(bearer)
+        self._dbus[self._interface].DeleteBearer(bearer)
 
     def Reset(self):
-        self._dbus.Reset()
+        self._dbus[self._interface].Reset()
 
     def FactoryReset(self, code):
-        self._dbus.FactoryReset(code)
+        self._dbus[self._interface].FactoryReset(code)
 
     def SetPowerState(self, state):
-        self._dbus.SetPowerState(state)
+        self._dbus[self._interface].SetPowerState(state)
 
     def SetCurrentCapabilities(self, capabilities):
-        self._dbus.SetCurrentCapabilities(capabilities)
+        self._dbus[self._interface].SetCurrentCapabilities(capabilities)
 
     def SetCurrentModes(self, modes):
-        self._dbus.SetCurrentModes(modes)
+        self._dbus[self._interface].SetCurrentModes(modes)
 
     def SetCurrentBands(self, bands):
-        self._dbus.SetCurrentBands(bands)
+        self._dbus[self._interface].SetCurrentBands(bands)
 
     def Command(self, cmd, timeout):
-        return self._dbus.Command(cmd, timeout)
+        return self._dbus[self._interface].Command(cmd, timeout)

@@ -25,7 +25,7 @@ class ModemCdma(ModemManagerHelper):
     @onActivationStateChanged.setter
     def onActivationStateChanged(self, callback):
         callback = types.MethodType(callback, self)
-        self._activation_state_changed = self._dbus.ActivationStateChanged.connect(callback)
+        self._activation_state_changed = self._dbus[self._interface].ActivationStateChanged.connect(callback)
 
     @onActivationStateChanged.deleter
     def onActivationStateChanged(self):
@@ -39,14 +39,14 @@ class ModemCdma(ModemManagerHelper):
             self.onActivationStateChanged = callback
             return self.onActivationStateChanged
         else:
-            return self._dbus.ActivationStateChanged.connect(self._on_activation_state_changed_cb)
+            return self._dbus[self._interface].ActivationStateChanged.connect(self._on_activation_state_changed_cb)
 
     def _on_activation_state_changed_cb(self, activation_state, activation_error, status_changes):
         logging.info('{}: {} because {}'.format(self._path, MMModemCdmaActivationState(activation_state).name, MMCdmaActivationError(activation_error).name))
 
     ### org.freedesktop.ModemManager1.Modem.ModemCdma ###
     def Activate(self, carrier_code):
-        self._dbus.Activate(carrier_code)
+        self._dbus[self._interface].Activate(carrier_code)
 
     def ActivateManual(self, properties):
-        self._dbus.Activate(properties)
+        self._dbus[self._interface].Activate(properties)

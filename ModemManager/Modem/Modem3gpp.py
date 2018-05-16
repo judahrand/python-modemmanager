@@ -17,7 +17,7 @@ class Modem3gpp(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Modem3gpp ###
     def Register(self, operator_id):
-        self._dbus.Register(operator_id)
+        self._dbus[self._interface].Register(operator_id)
 
     def Scan(self):
         return self.Scan()
@@ -29,10 +29,10 @@ class Ussd(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Modem3gpp.Ussd ###
     def Initiate(self, command):
-        return self._dbus.Initiate(command)
+        return self._dbus[self._interface].Initiate(command)
 
     def Respond(self, response):
-        return self._dbus.Respond(response)
+        return self._dbus[self._interface].Respond(response)
 
     def Cancel(self):
-        self._dbus.Cancel()
+        self._dbus[self._interface].Cancel()

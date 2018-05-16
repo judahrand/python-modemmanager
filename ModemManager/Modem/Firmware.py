@@ -16,7 +16,7 @@ class Firmware(ModemManagerHelper):
 
     ### org.freedesktop.ModemManager1.Modem.Firmware ###
     def List(self):
-        return self._dbus.List()
+        return self._dbus[self._interface].List()
 
     def Select(self, uniqueid):
-        self._dbus.Select(uniqueid)
+        self._dbus[self._interface].Select(uniqueid)

@@ -25,7 +25,7 @@ class Voice(ModemManagerHelper):
     @onCallAdded.setter
     def onCallAdded(self, callback):
         callback = types.MethodType(callback, self)
-        self._call_added = self._dbus.CallAdded.connect(callback)
+        self._call_added = self._dbus[self._interface].CallAdded.connect(callback)
 
     @onCallAdded.deleter
     def onCallAdded(self):
@@ -39,7 +39,7 @@ class Voice(ModemManagerHelper):
             self.onCallAdded = callback
             return self.onCallAdded
         else:
-            return self._dbus.CallAdded.connect(self._on_call_added_cb)
+            return self._dbus[self._interface].CallAdded.connect(self._on_call_added_cb)
 
     def _on_call_added_cb(self, path):
         logging.info('{}: {} added'.format(self._path, path))
@@ -51,7 +51,7 @@ class Voice(ModemManagerHelper):
     @onCallDeleted.setter
     def onCallDeleted(self, callback):
         callback = types.MethodType(callback, self)
-        self._call_deleted = self._dbus.CallDeleted.connect(callback)
+        self._call_deleted = self._dbus[self._interface].CallDeleted.connect(callback)
 
     @onCallDeleted.deleter
     def onCallDeleted(self):
@@ -65,20 +65,20 @@ class Voice(ModemManagerHelper):
             self.onCallDeleted = callback
             return self.onCallDeleted
         else:
-            return self._dbus.CallDeleted.connect(self._on_call_deleted_cb)
+            return self._dbus[self._interface].CallDeleted.connect(self._on_call_deleted_cb)
 
     def _on_call_deleted_cb(self, path):
         logging.info('{}: {} deleted'.format(self._path, path))
 
     ### org.freedesktop.ModemManager1.Modem.Voice ###
     def ListCalls(self):
-        return self._dbus.ListCalls()
+        return self._dbus[self._interface].ListCalls()
 
     def DeleteCall(self, path):
-        self._dbus.DeleteCall(path)
+        self._dbus[self._interface].DeleteCall(path)
 
     def CreateCall(self, properties):
-        return self._dbus.CreateCall(properties)
+        return self._dbus[self._interface].CreateCall(properties)
 
     ### get interface to Call ###
     def GetCall(self, path):

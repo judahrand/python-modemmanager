@@ -25,7 +25,7 @@ class Call(ModemManagerHelper):
     @onDtmfReceived.setter
     def onDtmfReceived(self, callback):
         callback = types.MethodType(callback, self)
-        self._dtmf_received = self._dbus.DtmfReceived.connect(callback)
+        self._dtmf_received = self._dbus[self._interface].DtmfReceived.connect(callback)
 
     @onDtmfReceived.deleter
     def onDtmfReceived(self):
@@ -39,7 +39,7 @@ class Call(ModemManagerHelper):
             self.onDtmfReceived = callback
             return self.onDtmfReceived
         else:
-            return self._dbus.DtmfReceived.connect(self._on_dtmf_received_cb)
+            return self._dbus[self._interface].DtmfReceived.connect(self._on_dtmf_received_cb)
 
     def _on_dtmf_received_cb(self, dtmf):
         logging.info('{}: {} received'.format(self._path, dtmf))
@@ -51,7 +51,7 @@ class Call(ModemManagerHelper):
     @onStateChanged.setter
     def onStateChanged(self, callback):
         callback = types.MethodType(callback, self)
-        self._state_changed = self._dbus.StateChanged.connect(callback)
+        self._state_changed = self._dbus[self._interface].StateChanged.connect(callback)
 
     @onStateChanged.deleter
     def onStateChanged(self):
@@ -65,7 +65,7 @@ class Call(ModemManagerHelper):
             self.onStateChanged = callback
             return self.onStateChanged
         else:
-            return self._dbus.StateChanged.connect(self._on_state_changed_cb)
+            return self._dbus[self._interface].StateChanged.connect(self._on_state_changed_cb)
 
     def _on_state_changed_cb(self, old, new, reason):
         logging.info('{}: {} to {} because {}'.format(self._path, MMCallState(old).name, MMCallState(new).name, MMCallStateReason(reason).name))
@@ -77,13 +77,13 @@ class Call(ModemManagerHelper):
             raise KeyError('{} does not have property named {}'.format(self._interface, key))
 
     def Start(self):
-        self._dbus.Start()
+        self._dbus[self._interface].Start()
 
     def Accept(self):
-        self._dbus.Accept()
+        self._dbus[self._interface].Accept()
 
     def Hangup(self):
-        self._dbus.Hangup()
+        self._dbus[self._interface].Hangup()
 
     def SendDtmf(self, dtmf):
-        self._dbus.SendDtmf(dtmf)
+        self._dbus[self._interface].SendDtmf(dtmf)
