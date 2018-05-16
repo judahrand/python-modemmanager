@@ -75,12 +75,21 @@ class Modem(ModemManagerHelper):
         return self.Get(key)
 
     ### get custom objects ###
-    def GetSim(self):
+    @property
+    def Sim(self):
         path = self.Get('Sim')
         if path != "/":
             return SIM(self.Get('Sim'))
         else:
             return None
+
+    @Sim.setter
+    def Sim(self):
+        return
+
+    @Sim.deleter
+    def Sim(self):
+        return
 
     def GetBearer(self, path):
         return Bearer(path)
