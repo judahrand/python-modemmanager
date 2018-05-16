@@ -12,7 +12,7 @@ from ModemManager.ModemManager import ModemManagerHelper
 
 class Signal(ModemManagerHelper):
     def __init__(self, path):
-        super(Signal, self).__init__(interface='org.freedesktop.ModemManager1.Modem.Siganl', path=path)
+        super(Signal, self).__init__(interface='org.freedesktop.ModemManager1.Modem.Signal', path=path)
 
     ### org.freedesktop.ModemManager1.Modem.Signal ###
     def Setup(self, rate):
