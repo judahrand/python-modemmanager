@@ -11,7 +11,7 @@ import logging
 import types
 
 from ModemManager.ModemManager import ModemManagerHelper
-from ModemManager._enum import MMOmaSessionState, MMOmaSessionStateFailedReason
+from ModemManager._enums import MMOmaSessionState, MMOmaSessionStateFailedReason
 
 
 class Oma(ModemManagerHelper):

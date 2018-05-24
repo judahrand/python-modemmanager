@@ -23,7 +23,7 @@ from ModemManager.Modem.Signal import Signal
 from ModemManager.Modem.Oma import Oma
 from ModemManager.SIM import SIM
 from ModemManager.Bearer import Bearer
-from ModemManager._enum import MMModemState, MMModemStateChangeReason
+from ModemManager._enums import MMModemState, MMModemStateChangeReason
 
 
 class Modem(ModemManagerHelper):

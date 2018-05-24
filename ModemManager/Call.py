@@ -11,7 +11,7 @@ import logging
 import types
 
 from ModemManager.ModemManager import ModemManagerHelper
-from ModemManager._enum import MMCallState, MMCallStateReason
+from ModemManager._enums import MMCallState, MMCallStateReason
 
 
 class Call(ModemManagerHelper):
