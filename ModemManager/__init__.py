@@ -4,6 +4,7 @@
 # (C)2018 Open Broadcast Systems Ltd
 # License: MIT
 
+from __future__ import absolute_import
 
 from ModemManager.ModemManager import ModemManager, ModemManagerHelper
 from ModemManager.Modem.Modem import Modem
