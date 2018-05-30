@@ -21,7 +21,7 @@ class ModemManager(ModemManagerHelper):
         try:
             return Modem(path)
         except KeyError:
-            raise KeyError('modem {} does not exist'.format(path))
+            raise KeyError('{} does not exist'.format(path))
 
     def __iter__(self):
             for key in self.ListModems():

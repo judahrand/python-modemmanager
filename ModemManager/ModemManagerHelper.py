@@ -22,6 +22,12 @@ class ModemManagerHelper(object):
     def __str__(self):
         return str(self._path)
 
+    def __getitem__(self, key):
+        try:
+            return self.Get(key)
+        except KeyError:
+            raise KeyError('{} does not have property named {}'.format(self._interface, key))
+
     @property
     def path(self):
         return self._path
@@ -52,7 +58,9 @@ class ModemManagerHelper(object):
 
         value = self._dbus.Get(interface_name, property_name)
         try:
-            value = int(value)
+            value = float(value)
+            if value.is_integer():
+                value = int(value)
         except (TypeError, ValueError):
             pass
         return value

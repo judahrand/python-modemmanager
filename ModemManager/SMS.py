@@ -16,12 +16,6 @@ class SMS(ModemManagerHelper):
     def __init__(self, path):
         super(SMS, self).__init__(interface='org.freedesktop.ModemManager1.Sms', path=path)
 
-    def __getitem__(self, key):
-        try:
-            return self.Get(key)
-        except KeyError:
-            raise KeyError('{} does not have property named {}'.format(self._interface, key))
-
     def Send(self):
         self._dbus[self._interface].Send()
 

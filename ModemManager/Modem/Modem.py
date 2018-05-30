@@ -73,9 +73,6 @@ class Modem(ModemManagerHelper):
     def _on_state_changed_cb(self, old, new, reason):
         logging.info('{}: {} to {} because {}'.format(self._path, MMModemState(old).name, MMModemState(new).name, MMModemStateChangeReason(reason).name))
 
-    def __getitem__(self, key):
-        return self.Get(key)
-
     ### get custom objects ###
     @property
     def Sim(self):

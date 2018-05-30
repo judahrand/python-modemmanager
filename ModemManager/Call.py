@@ -72,12 +72,6 @@ class Call(ModemManagerHelper):
     def _on_state_changed_cb(self, old, new, reason):
         logging.info('{}: {} to {} because {}'.format(self._path, MMCallState(old).name, MMCallState(new).name, MMCallStateReason(reason).name))
 
-    def __getitem__(self, key):
-        try:
-            return self.Get(key)
-        except KeyError:
-            raise KeyError('{} does not have property named {}'.format(self._interface, key))
-
     def Start(self):
         self._dbus[self._interface].Start()
 

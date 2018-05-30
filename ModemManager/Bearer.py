@@ -16,12 +16,6 @@ class Bearer(ModemManagerHelper):
     def __init__(self, path):
         super(Bearer, self).__init__(interface='org.freedesktop.ModemManager1.Bearer', path=path)
 
-    def __getitem__(self, key):
-        try:
-            return self._bearer[key]
-        except KeyError:
-            raise KeyError('bearer does not have property named {}'.format(key))
-
     def Connect(self):
         try:
             self._dbus[self._interface].Connect()

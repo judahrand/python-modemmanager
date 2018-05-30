@@ -15,12 +15,6 @@ class SIM(ModemManagerHelper):
     def __init__(self, path):
         super(SIM, self).__init__(interface='org.freedesktop.ModemManager1.Sim', path=path)
 
-    def __getitem__(self, key):
-        try:
-            return self.Get(key)
-        except KeyError:
-            raise KeyError('{} does not have property named {}'.format(self._interface, key))
-
     def SendPin(self, pin):
         self._dbus[self._interface].SendPin(pin)
 
